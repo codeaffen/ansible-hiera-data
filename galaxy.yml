@@ -1,0 +1,18 @@
+namespace: "codeaffen"
+name: "hieradata"
+description: Ansible collection to manage configuration data in a hierarchical structure
+authors:
+  - "Christian Meißner <cme+ansible@meissner.sh>"
+version: "0.0.1"
+license:
+  - "GPL-3.0-or-later"
+tags:
+  - ansible
+  - vars
+  - lookup
+  - module
+  - hieradata
+readme: "README.md"
+homepage: "https://codeaffen.github.io/ansible-hiera-data"
+repository: "https://github.com/codeaffen/ansible-hiera-data"
+issues: "https://github.com/codeaffen/ansible-hiera-data/issues"
