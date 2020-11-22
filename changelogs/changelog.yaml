@@ -1,0 +1,10 @@
+ancestor: null
+releases:
+  0.0.1:
+    plugins:
+      vars:
+      - description: Loads configuration from a hierarchical configuration structure
+          structure
+        name: hieradata
+        namespace: null
+    release_date: '2020-11-26'

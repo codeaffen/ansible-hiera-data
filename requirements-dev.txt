@@ -1,0 +1,12 @@
+
+wheel
+ansible >= 2.10.0rc2
+jinja2
+PyYAML
+cryptography
+packaging
+requests
+pytest
+pytest-xdist
+flake8
+bumpversion
