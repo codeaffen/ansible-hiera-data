@@ -43,6 +43,7 @@ from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.utils.vars import combine_vars
+from ansible.utils.display import Display as D
 
 FOUND = {}
 
@@ -56,3 +57,5 @@ class VarsModule(BaseVarsPlugin):
         pass
 
         super(VarsModule, self).get_vars(loader, path, entities)
+
+        D("host_vars: {}".format(loader))
