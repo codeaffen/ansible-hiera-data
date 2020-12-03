@@ -14,10 +14,29 @@ DOCUMENTATION = '''
         - Loads only files with extension to one of .yaml, .json, .yml or no extension.
         - Starting in 0.0.1, this plugin requires whitelisting and is whitelisted by default.
     options:
+      basedir:
+        default: "hieradata"
+        description:
+          - "Base directory for hierdata"
+        type: str
+        env:
+          - name: ANSIBLE_HIERA_DATA_DIR
+        ini:
+          - section: hieradata
+            key: basedir
+      hierachy:
+        description:
+          - "List of files and directories that build the hierarchy"
+          - "Fist element has lowest precedence"
+          - "Last element has highest precedence"
+        type: list
+        ini:
+          - section: hieradata
+            key: hierarchy
       stage:
         ini:
-          - key: stage
-            section: vars_host_group_vars
+          - section: vars_host_group_vars
+            key: stage
         env:
           - name: ANSIBLE_VARS_PLUGIN_STAGE
       _valid_extensions:
@@ -52,10 +71,12 @@ class VarsModule(BaseVarsPlugin):
 
     REQUIRES_WHITELIST = True
 
+    def __init__(self):
+        self.basedir = self.get_option('basedir')
+        self.hierachy = self.get_option('hierarchy')
+
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
         pass
 
         super(VarsModule, self).get_vars(loader, path, entities)
-
-        D("host_vars: {}".format(loader))
