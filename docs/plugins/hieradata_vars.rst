@@ -102,6 +102,56 @@ Parameters
             </tr>
                                 <tr>
                                                                 <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-basedir"></div>
+                    <b>basedir</b>
+                    <a class="ansibleOptionLink" href="#parameter-basedir" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">string</span>
+                                                                    </div>
+                                                        </td>
+                                <td>
+                                                                                                                                                                    <b>Default:</b><br/><div style="color: blue">"hieradata"</div>
+                                    </td>
+                                                    <td>
+                                                    <div> ini entries:
+                                                                    <p>
+                                        [hieradata]<br>basedir = hieradata
+                                                                                                                    </p>
+                                                            </div>
+                                                                            <div>
+                                env:ANSIBLE_HIERA_DATA_DIR
+                                                                                            </div>
+                                                                    </td>
+                                                <td>
+                                            <div>Base directory for hierdata</div>
+                                                        </td>
+            </tr>
+                                <tr>
+                                                                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-hierachy"></div>
+                    <b>hierachy</b>
+                    <a class="ansibleOptionLink" href="#parameter-hierachy" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">list</span>
+                         / <span style="color: purple">elements=string</span>                                            </div>
+                                                        </td>
+                                <td>
+                                                                                                                                                            </td>
+                                                    <td>
+                                                    <div> ini entries:
+                                                                    <p>
+                                        [hieradata]<br>hierarchy = None
+                                                                                                                    </p>
+                                                            </div>
+                                                                                            </td>
+                                                <td>
+                                            <div>List of files and directories that build the hierarchy</div>
+                                            <div>Fist element has lowest precedence</div>
+                                            <div>Last element has highest precedence</div>
+                                                        </td>
+            </tr>
+                                <tr>
+                                                                <td colspan="1">
                     <div class="ansibleOptionAnchor" id="parameter-stage"></div>
                     <b>stage</b>
                     <a class="ansibleOptionLink" href="#parameter-stage" title="Permalink to this option"></a>
