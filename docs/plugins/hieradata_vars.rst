@@ -102,9 +102,9 @@ Parameters
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-basedir"></div>
-                    <b>basedir</b>
-                    <a class="ansibleOptionLink" href="#parameter-basedir" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-hiera_basedir"></div>
+                    <b>hiera_basedir</b>
+                    <a class="ansibleOptionLink" href="#parameter-hiera_basedir" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                                                                     </div>
@@ -119,18 +119,18 @@ Parameters
                                                                                                                     </p>
                                                             </div>
                                                                             <div>
-                                env:ANSIBLE_HIERA_DATA_DIR
+                                env:HIERADATA_BASE_DIR
                                                                                             </div>
                                                                     </td>
                                                 <td>
-                                            <div>Base directory for hierdata</div>
+                                            <div>The base directory where the hierarchy has to be placed in.</div>
                                                         </td>
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hierachy"></div>
-                    <b>hierachy</b>
-                    <a class="ansibleOptionLink" href="#parameter-hierachy" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy"></div>
+                    <b>hiera_hierarchy</b>
+                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">list</span>
                          / <span style="color: purple">elements=string</span>                                            </div>
@@ -145,9 +145,35 @@ Parameters
                                                             </div>
                                                                                             </td>
                                                 <td>
-                                            <div>List of files and directories that build the hierarchy</div>
-                                            <div>Fist element has lowest precedence</div>
-                                            <div>Last element has highest precedence</div>
+                                            <div>List of files and directories which builds up the hierarchy.</div>
+                                            <div>The elements follow the precedence. First element lowest precedence, last highest.</div>
+                                            <div>Mutually exclusive with <em>config</em>.</div>
+                                                        </td>
+            </tr>
+                                <tr>
+                                                                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy_config"></div>
+                    <b>hiera_hierarchy_config</b>
+                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy_config" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">string</span>
+                                                                    </div>
+                                                        </td>
+                                <td>
+                                                                                                                                                            </td>
+                                                    <td>
+                                                    <div> ini entries:
+                                                                    <p>
+                                        [hieradata]<br>config = None
+                                                                                                                    </p>
+                                                            </div>
+                                                                            <div>
+                                env:HIERADATA_CONFIG_FILE
+                                                                                            </div>
+                                                                    </td>
+                                                <td>
+                                            <div>Name of hieradata configuration file.</div>
+                                            <div>Mutually exclusive with <em>hierarchy</em>.</div>
                                                         </td>
             </tr>
                                 <tr>
