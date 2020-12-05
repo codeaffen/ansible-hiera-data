@@ -97,4 +97,7 @@ class VarsModule(BaseVarsPlugin):
         ''' parses the inventory file '''
         pass
 
+        if not isinstance(entities, list):
+            entities = [entities]
+
         super(VarsModule, self).get_vars(loader, path, entities)
