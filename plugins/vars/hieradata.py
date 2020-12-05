@@ -67,7 +67,7 @@ import os
 import yaml
 
 from ansible import constants as C
-from ansible.errors import AnsibleParserError
+from ansible.errors import AnsibleOptionsError, AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.utils.vars import combine_vars
@@ -80,10 +80,18 @@ class VarsModule(BaseVarsPlugin):
 
     REQUIRES_WHITELIST = True
 
-    def __init__(self):
-        self.basedir = self.get_option('basedir')
-        self.basedir = self.get_option('hiera_config')
-        self.hierachy = self.get_option('hierarchy')
+    def __init__(self, *args, **kwargs):
+
+        super(VarsModule, self).__init__(*args, **kwargs)
+
+        self.basedir = self.get_option('hiera_basedir')
+        self.config = self.get_option('hiera_hierarchy_config')
+        self.hierachy = self.get_option('hiera_hierarchy')
+
+        if self.config and self.hierachy:
+            raise AnsibleOptionsError("config and hierarchy are mutually exclusive")
+        elif not self.config or self.hierachy:
+            raise AnsibleOptionsError("either config or hierarchy must be defined")
 
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
