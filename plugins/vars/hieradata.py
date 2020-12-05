@@ -97,7 +97,6 @@ class VarsModule(BaseVarsPlugin):
 
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
-        pass
 
         if not isinstance(entities, list):
             entities = [entities]
