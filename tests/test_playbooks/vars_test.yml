@@ -1,0 +1,9 @@
+---
+- hosts: all
+  strategy: debug
+  gather_facts: no
+
+  tasks:
+    - name: debug
+      debug:
+        msg: debug

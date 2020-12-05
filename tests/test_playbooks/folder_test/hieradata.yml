@@ -1,6 +1,5 @@
-hieradata:
-  hierarchy:
-    - common.yml
-    - "environments/{{ env }}.yml"
-    - "roles/{{ role }}.yml"
-    - "roles/{{ role }}-{{ env }}.yml"
+hierarchy:
+  - common.yml
+  - "environments/{{ env }}.yml"
+  - "roles/{{ role }}.yml"
+  - "roles/{{ role }}-{{ env }}.yml"

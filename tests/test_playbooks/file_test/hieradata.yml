@@ -1,4 +1,3 @@
-basedire: hieradata
 hierarchy:
   - common.yml
   - "{{ env }}.yml"
