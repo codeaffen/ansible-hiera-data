@@ -101,3 +101,7 @@ class VarsModule(BaseVarsPlugin):
             entities = [entities]
 
         super(VarsModule, self).get_vars(loader, path, entities)
+
+        hieradata = {}
+
+        return hieradata
