@@ -23,19 +23,10 @@ DOCUMENTATION = '''
         ini:
           - section: hieradata
             key: basedir
-      hiera_hierarchy:
+      hiera_config:
+        default: hieradata.yml
         description:
-          - List of files and directories which builds up the hierarchy.
-          - The elements follow the precedence. First element lowest precedence, last highest.
-          - Mutually exclusive with I(config).
-        type: list
-        ini:
-          - section: hieradata
-            key: hierarchy
-      hiera_hierarchy_config:
-        description:
-          - "Name of hieradata configuration file."
-          - Mutually exclusive with I(hierarchy).
+          - Name of hieradata configuration file.
         type: str
         env:
           - name: HIERADATA_CONFIG_FILE
@@ -85,13 +76,7 @@ class VarsModule(BaseVarsPlugin):
         super(VarsModule, self).__init__(*args, **kwargs)
 
         self.basedir = self.get_option('hiera_basedir')
-        self.config = self.get_option('hiera_hierarchy_config')
-        self.hierachy = self.get_option('hiera_hierarchy')
-
-        if self.config and self.hierachy:
-            raise AnsibleOptionsError("config and hierarchy are mutually exclusive")
-        elif not self.config or self.hierachy:
-            raise AnsibleOptionsError("either config or hierarchy must be defined")
+        self.config = self.get_option('hiera_config')
 
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
