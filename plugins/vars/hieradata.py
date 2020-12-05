@@ -54,6 +54,23 @@ DOCUMENTATION = '''
       - vars_plugin_staging
 '''
 
+EXAMPLES = '''
+# hieradata.yml organized with files
+hierarchy:
+  - common.yml
+  - "{{ env }}.yml"
+  - "{{ role }}.yml"
+  - "{{ role }}-{{ env }}.yml"
+
+# hieradata.yml organized with directories and files
+hieradata:
+  hierarchy:
+    - common.yml
+    - "environments/{{ env }}.yml"
+    - "roles/{{ role }}.yml"
+    - "roles/{{ role }}-{{ env }}.yml"
+'''
+
 import os
 import yaml
 

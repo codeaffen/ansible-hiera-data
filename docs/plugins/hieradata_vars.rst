@@ -128,43 +128,20 @@ Parameters
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy"></div>
-                    <b>hiera_hierarchy</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy" title="Permalink to this option"></a>
-                    <div style="font-size: small">
-                        <span style="color: purple">list</span>
-                         / <span style="color: purple">elements=string</span>                                            </div>
-                                                        </td>
-                                <td>
-                                                                                                                                                            </td>
-                                                    <td>
-                                                    <div> ini entries:
-                                                                    <p>
-                                        [hieradata]<br>hierarchy = None
-                                                                                                                    </p>
-                                                            </div>
-                                                                                            </td>
-                                                <td>
-                                            <div>List of files and directories which builds up the hierarchy.</div>
-                                            <div>The elements follow the precedence. First element lowest precedence, last highest.</div>
-                                            <div>Mutually exclusive with <em>config</em>.</div>
-                                                        </td>
-            </tr>
-                                <tr>
-                                                                <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy_config"></div>
-                    <b>hiera_hierarchy_config</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy_config" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-hiera_config"></div>
+                    <b>hiera_config</b>
+                    <a class="ansibleOptionLink" href="#parameter-hiera_config" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                                                                     </div>
                                                         </td>
                                 <td>
-                                                                                                                                                            </td>
+                                                                                                                                                                    <b>Default:</b><br/><div style="color: blue">"hieradata.yml"</div>
+                                    </td>
                                                     <td>
                                                     <div> ini entries:
                                                                     <p>
-                                        [hieradata]<br>config = None
+                                        [hieradata]<br>config = hieradata.yml
                                                                                                                     </p>
                                                             </div>
                                                                             <div>
@@ -173,7 +150,6 @@ Parameters
                                                                     </td>
                                                 <td>
                                             <div>Name of hieradata configuration file.</div>
-                                            <div>Mutually exclusive with <em>hierarchy</em>.</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -223,6 +199,28 @@ Parameters
 
 
 .. Examples
+
+Examples
+--------
+
+.. code-block:: yaml+jinja
+
+    
+    # hieradata.yml organized with files
+    hierarchy:
+      - common.yml
+      - "{{ env }}.yml"
+      - "{{ role }}.yml"
+      - "{{ role }}-{{ env }}.yml"
+
+    # hieradata.yml organized with directories and files
+    hieradata:
+      hierarchy:
+        - common.yml
+        - "environments/{{ env }}.yml"
+        - "roles/{{ role }}.yml"
+        - "roles/{{ role }}-{{ env }}.yml"
+
 
 
 
