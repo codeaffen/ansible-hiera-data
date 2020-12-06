@@ -104,8 +104,8 @@ class VarsModule(BaseVarsPlugin):
         with open(self.hiera_config) as fd:
             hierarchy = yaml.load(fd, Loader=FullLoader)['hierarchy']
 
-        for i in range(len(hierarchy)):
-            t = Template(hierarchy[i])
+        for i, entry in enumerate(hierarchy):
+            t = Template(entry)
             # currently statically
             # TODO: handover variables to `get_vars`
             hierarchy[i] = t.render(role='web', env='test')
