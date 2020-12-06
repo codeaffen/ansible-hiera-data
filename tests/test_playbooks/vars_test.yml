@@ -6,4 +6,4 @@
   tasks:
     - name: debug
       debug:
-        msg: debug
+        msg: a debug message
