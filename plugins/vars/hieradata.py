@@ -1,7 +1,6 @@
 # Copyright (c) 2020 Christian Meißner
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
-from os.path import basename
 
 from yaml.loader import FullLoader
 __metaclass__ = type
@@ -78,12 +77,12 @@ import yaml
 
 from jinja2 import Template
 
-from ansible import constants as C
-from ansible.errors import AnsibleOptionsError, AnsibleParserError
-from ansible.module_utils._text import to_bytes, to_native, to_text
+# from ansible import constants as C
+# from ansible.errors import AnsibleOptionsError, AnsibleParserError
+# from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
-from ansible.utils.vars import combine_vars
-from ansible.utils.display import Display as D
+# from ansible.utils.vars import combine_vars
+# from ansible.utils.display import Display as D
 
 FOUND = {}
 
