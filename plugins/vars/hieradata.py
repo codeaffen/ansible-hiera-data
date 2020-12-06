@@ -1,6 +1,9 @@
 # Copyright (c) 2020 Christian Meißner
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
+from os.path import basename
+
+from yaml.loader import FullLoader
 __metaclass__ = type
 
 DOCUMENTATION = '''
@@ -71,8 +74,9 @@ hieradata:
     - "roles/{{ role }}-{{ env }}.yml"
 '''
 
-import os
 import yaml
+
+from jinja2 import Template
 
 from ansible import constants as C
 from ansible.errors import AnsibleOptionsError, AnsibleParserError
@@ -86,13 +90,6 @@ FOUND = {}
 
 class VarsModule(BaseVarsPlugin):
 
-    def __init__(self, *args, **kwargs):
-
-        super(VarsModule, self).__init__(*args, **kwargs)
-
-        self.hiera_basedir = self.get_option('hiera_basedir')
-        self.hiera_config = self.get_option('hiera_config')
-
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
 
@@ -101,8 +98,17 @@ class VarsModule(BaseVarsPlugin):
 
         super(VarsModule, self).get_vars(loader, path, entities)
 
-        with open(self.hiera_config) as hierarchy_config:
-            hierarchy = yaml.load(hierarchy_config)
+        self.hiera_basedir = self.get_option('hiera_basedir')
+        self.hiera_config = self.get_option('hiera_config')
+
+        with open(self.hiera_config) as fd:
+            hierarchy = yaml.load(fd, Loader=FullLoader)['hierarchy']
+
+        for i in range(len(hierarchy)):
+            t = Template(hierarchy[i])
+            # currently statically
+            # TODO: handover variables to `get_vars`
+            hierarchy[i] = t.render(role='web', env='test')
 
         self._display.display(u"hierarchy: {}".format(hierarchy))
 
