@@ -101,6 +101,8 @@ class VarsModule(BaseVarsPlugin):
         if not isinstance(entities, list):
             entities = [entities]
 
+        self._display.display(u"In 'get_vars'")
+
         super(VarsModule, self).get_vars(loader, path, entities)
 
         b_config_path = os.path.realpath(to_bytes(os.path.join(self._basedir, self.hiera_config)))
