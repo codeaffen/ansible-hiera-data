@@ -35,10 +35,10 @@ DOCUMENTATION = '''
             key: config
       stage:
         ini:
-          - section: vars_host_group_vars
+          - section: hieradata
             key: stage
         env:
-          - name: ANSIBLE_VARS_PLUGIN_STAGE
+          - name: HIERADATA_VARS_PLUGIN_STAGE
       _valid_extensions:
         default: [".yml", ".yaml", ".json"]
         description:
@@ -92,8 +92,8 @@ class VarsModule(BaseVarsPlugin):
 
         super(VarsModule, self).__init__(*args, **kwargs)
 
-        self.basedir = self.get_option('hiera_basedir')
-        self.config = self.get_option('hiera_config')
+        self.hiera_basedir = self.get_option('hiera_basedir')
+        self.hiera_config = self.get_option('hiera_config')
 
     def get_vars(self, loader, path, entities, cache=True):
         ''' parses the inventory file '''
@@ -102,6 +102,14 @@ class VarsModule(BaseVarsPlugin):
             entities = [entities]
 
         super(VarsModule, self).get_vars(loader, path, entities)
+
+        b_config_path = os.path.realpath(to_bytes(os.path.join(self._basedir, self.hiera_config)))
+        t_config_path = to_text(b_config_path)
+
+        hiera_config = open(t_config_path, 'r')
+        tmp_hierarchy = hiera_config.readlines()
+
+        self._display.display(u"hierarchy: {}".format(tmp_hierarchy))
 
         hieradata = {}
 
