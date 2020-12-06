@@ -86,7 +86,7 @@ FOUND = {}
 
 class VarsModule(BaseVarsPlugin):
 
-    REQUIRES_WHITELIST = True
+    REQUIRES_WHITELIST = False
 
     def __init__(self, *args, **kwargs):
 
