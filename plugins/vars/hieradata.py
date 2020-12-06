@@ -86,8 +86,6 @@ FOUND = {}
 
 class VarsModule(BaseVarsPlugin):
 
-    REQUIRES_WHITELIST = False
-
     def __init__(self, *args, **kwargs):
 
         super(VarsModule, self).__init__(*args, **kwargs)
