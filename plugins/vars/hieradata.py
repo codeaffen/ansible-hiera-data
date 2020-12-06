@@ -101,17 +101,12 @@ class VarsModule(BaseVarsPlugin):
         if not isinstance(entities, list):
             entities = [entities]
 
-        self._display.display(u"In 'get_vars'")
-
         super(VarsModule, self).get_vars(loader, path, entities)
 
-        b_config_path = os.path.realpath(to_bytes(os.path.join(self._basedir, self.hiera_config)))
-        t_config_path = to_text(b_config_path)
+        with open(self.hiera_config) as hierarchy_config:
+            hierarchy = yaml.load(hierarchy_config)
 
-        hiera_config = open(t_config_path, 'r')
-        tmp_hierarchy = hiera_config.readlines()
-
-        self._display.display(u"hierarchy: {}".format(tmp_hierarchy))
+        self._display.display(u"hierarchy: {}".format(hierarchy))
 
         hieradata = {}
 
