@@ -13,6 +13,7 @@ exclude =
 deps =
     wheel,
     flake8-colors,
+max-line-length = 160
 max-complexity = 10
 import-order-style = google
 application-import-names = flake8
