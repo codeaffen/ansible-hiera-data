@@ -1,6 +1,7 @@
 
 wheel
 ansible >= 2.10.0rc2
+inflection
 jinja2
 PyYAML
 cryptography
