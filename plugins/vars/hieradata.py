@@ -125,7 +125,7 @@ class VarsModule(BaseVarsPlugin):
 
         hieradata = {}
         for entity in entities:
-            self._parse_config(entity, parse=self.hiera_data_for)
+            hierarchy = self._parse_config(entity, parse=self.hiera_data_for)
 
             if self.hiera_data_for == 'hosts' or self.hiera_data_for == 'groups':
                 hiera_basedir = os.path.join(self.hiera_basedir)
