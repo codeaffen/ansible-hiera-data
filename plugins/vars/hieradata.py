@@ -101,7 +101,19 @@ FOUND = {}
 class VarsModule(BaseVarsPlugin):
 
     def get_vars(self, loader, path, entities, cache=True):
-        """parse the inventory file."""
+        """parse the inventory file.
+
+        :param loader: The DataLoader wich auto-load JSON/YAML and decrypt vaulted data, and cache read files.
+        :type loader: DataLoader
+        :param path: Directory data for inventory and current playbook directory, to find data in reference to them.
+        :type path: list
+        :param entities: Host and group names for what variables are needed. The plugin is called once for hosts and for groups too.
+        :type entities: list
+        :param cache: If true use cached values to reduce costs of re-reading., defaults to True
+        :type cache: boolean, optional
+        :return: Dictionary structure with the variables loaded from files.
+        :rtype: dictionary
+        """
         if not isinstance(entities, list):
             entities = [entities]
 
