@@ -33,6 +33,16 @@ DOCUMENTATION = '''
         ini:
           - section: hieradata
             key: config
+      hiera_data_for:
+        default: both
+        choices: [hosts, groups, both]
+        description:
+          - Should be data loaded for I(hosts), I(groups) or I(both).
+          - I case of I(both) the I(basedir) exists in sub direcoties I(host_vars) and I(group_vars) and there the defined hierarchy.
+          - If you choose I(hosts) or I(groups) the I(basedir) exists in inventory directory or playbook directory and there the defined hierarchy.
+        ini:
+          - section: hieradata
+            key: load_data_for
       stage:
         ini:
           - section: hieradata
@@ -71,6 +81,8 @@ hieradata:
     - "roles/{{ role }}-{{ env }}.yml"
 '''
 
+import inflection
+import os
 import yaml
 
 from jinja2 import Template
@@ -96,10 +108,21 @@ class VarsModule(BaseVarsPlugin):
         super(VarsModule, self).get_vars(loader, path, entities)
 
         self.hiera_basedir = self.get_option('hiera_basedir')
+        self.hiera_data_for = self.get_option('hiera_data_for')
         self.hiera_config = self.get_option('hiera_config')
 
-        with open(self.hiera_config) as fd:
-            hierarchy = yaml.load(fd, Loader=FullLoader)['hierarchy']
+        hieradata = {}
+        for entity in entities:
+            self._parse_config(entity, parse=self.hiera_data_for)
+
+            if self.hiera_data_for == 'hosts' or self.hiera_data_for == 'groups':
+                hiera_basedir = os.path.join(self.hiera_basedir)
+            elif isinstance(entity, Host) and self.hiera_data_for == 'both':
+                hiera_basedir = os.path.join(self.hiera_basedir, 'host_vars')
+            elif isinstance(entity, Group) and self.hiera_data_for == 'both':
+                hiera_basedir = os.path.join(self.hiera_basedir, 'group_vars')
+            else:
+                raise AnsibleParserError("Supplied entity must be Host or Group, got %s instead" % (type(entity)))
 
         for i, entry in enumerate(hierarchy):
             t = Template(entry)
