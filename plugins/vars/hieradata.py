@@ -135,3 +135,31 @@ class VarsModule(BaseVarsPlugin):
         hieradata = {}
 
         return hieradata
+
+    def _parse_config(self, entity, parse="both"):
+        """Loads hieradata.yml and parse its content
+
+        :param entity: the entity for what the configuration will be parsed
+        :type entity: str
+        :param parse: the type of entity we want to parse the configuration, defaults to "both"
+        :type parse: str, optional
+        :return: list of paths which reflects the hierarchy
+        :rtype: list
+        """
+        if inflection.singularize(parse) == type(entity).__name__.lower() or parse == "both":
+            with open(self.hiera_config) as fd:
+                fd_data = yaml.load(fd, Loader=SafeLoader)
+
+            hiera_vars = {}
+            for k, v in fd_data['hiera_vars'].items():
+                t = Template(v)
+                hiera_vars[k] = t.render(entity=entity)
+
+            hierarchy = []
+            for i, entry in enumerate(fd_data['hierarchy']):
+                t = Template(entry)
+                hierarchy.insert(i, t.render(hiera_vars))
+
+            return hierarchy
+        else:
+            return None
