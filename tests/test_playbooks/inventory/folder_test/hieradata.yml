@@ -4,5 +4,5 @@ hiera_vars:
 hierarchy:
   - common
   - "environments/{{ env }}"
-  - "roles/{{ role }}.yml"
+  - "roles/{{ role }}"
   - "roles/{{ role }}-{{ env }}"
