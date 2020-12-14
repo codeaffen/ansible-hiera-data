@@ -82,7 +82,6 @@ hieradata:
     - "roles/{{ role }}-{{ env }}"
 '''
 
-import inflection
 import os
 import yaml
 
@@ -94,7 +93,6 @@ from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.inventory.host import Host
-from ansible.inventory.group import Group
 from ansible.utils.vars import combine_vars
 
 FOUND = {}
@@ -126,7 +124,7 @@ class VarsModule(BaseVarsPlugin):
 
         hieradata = {}
         for entity in entities:
-            hierarchy = self._parse_config(entity, os.path.join(self._basedir, self.hiera_config))
+            hierarchy = parse_config(entity, os.path.join(self._basedir, self.hiera_config))
             if isinstance(entity, Host):
                 if not entity.name.startswith(os.path.sep) and hierarchy is not None:
                     found_files = []
@@ -159,27 +157,28 @@ class VarsModule(BaseVarsPlugin):
 
         return hieradata
 
-    def _parse_config(self, entity, config):
-        """Loads hieradata.yml and parse its content
 
-        :param entity: the entity for what the configuration will be parsed
-        :type entity: str
-        :param parse: the type of entity we want to parse the configuration, defaults to "both"
-        :type parse: str, optional
-        :return: list of paths which reflects the hierarchy
-        :rtype: list
-        """
-        with open(config) as fd:
-            fd_data = yaml.load(fd, Loader=SafeLoader)
+def parse_config(entity, config):
+    """Loads hieradata.yml and parse its content
 
-        hiera_vars = {}
-        for k, v in fd_data['hiera_vars'].items():
-            t = Template(v)
-            hiera_vars[k] = t.render(entity=entity)
+    :param entity: the entity for what the configuration will be parsed
+    :type entity: str
+    :param parse: the type of entity we want to parse the configuration, defaults to "both"
+    :type parse: str, optional
+    :return: list of paths which reflects the hierarchy
+    :rtype: list
+    """
+    with open(config) as fd:
+        fd_data = yaml.load(fd, Loader=SafeLoader)
 
-        hierarchy = []
-        for i, entry in enumerate(fd_data['hierarchy']):
-            t = Template(entry)
-            hierarchy.insert(i, t.render(hiera_vars))
+    hiera_vars = {}
+    for k, v in fd_data['hiera_vars'].items():
+        t = Template(v)
+        hiera_vars[k] = t.render(entity=entity)
 
-        return hierarchy
+    hierarchy = []
+    for i, entry in enumerate(fd_data['hierarchy']):
+        t = Template(entry)
+        hierarchy.insert(i, t.render(hiera_vars))
+
+    return hierarchy

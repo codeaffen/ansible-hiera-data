@@ -1,1 +1,1 @@
-"""Modules init"""
+"""Modules init."""
