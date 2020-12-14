@@ -1,9 +1,9 @@
 [db]
-db-1-test-01.test.example.com role=db env=test
-db-1-stage-01.stage.example.com role=db env=stage
-db-1-prod-01.prod.example.com role=db env=prod
+db-1-test-01.test.example.com
+db-1-stage-01.stage.example.com
+db-1-prod-01.prod.example.com
 
 [web]
-web-1-test-01.test.example.com role=web env=test
-web-1-stage-01.stage.example.com role=web env=stage
-web-1-prod-01.prod.example.com role=web env=prod
+web-1-test-01.test.example.com
+web-1-stage-01.stage.example.com
+web-1-prod-01.prod.example.com
