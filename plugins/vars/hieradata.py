@@ -10,15 +10,15 @@ DOCUMENTATION = '''
     requirements:
         - whitelist in configuration
     description:
-        - Loads YAML vars into corresponding groups/hosts in group_vars/ and host_vars/ directories.
+        - Loads YAML vars into corresponding hierarchy directories/files.
         - Loads only files with extension to one of .yaml, .json, .yml or no extension.
-        - Starting in 0.0.1, this plugin requires whitelisting and is whitelisted by default.
+        - Starting in 0.0.1, this plugin requires explicit whitelisting via I(vars_plugins_enabled).
     options:
       hiera_basedir:
         default: "hieradata"
         description:
             - The base directory where the hierarchy has to be placed in.
-            - The base directory has to be placed within the ianventory directory or playbook directory.
+            - The base directory has to be placed within the inventory directory or playbook directory.
         type: str
         env:
           - name: HIERADATA_BASE_DIR
@@ -29,6 +29,7 @@ DOCUMENTATION = '''
         default: hieradata.yml
         description:
           - Name of hieradata configuration file.
+          - The hieradata configuration file has to be placed within the inventory dirctory or playbook directory.
         type: str
         env:
           - name: HIERADATA_CONFIG_FILE
@@ -57,20 +58,28 @@ DOCUMENTATION = '''
 '''
 
 EXAMPLES = '''
-# hieradata.yml organized with files
+# hieradata.yml.
+# Each level in hierarchy can be a file or a directory.
+hiera_vars:
+  role: "{{ entity.name.split('-').0 }}"
+  env: "{{ entity.name.split('-').2 }}"
 hierarchy:
-  - common.yml
-  - "{{ env }}.yml"
-  - "{{ role }}.yml"
-  - "{{ role }}-{{ env }}.yml"
+  - common
+  - "{{ env }}"
+  - "{{ role }}"
+  - "{{ role }}-{{ env }}"
 
-# hieradata.yml organized with directories and files
+# hieradata organized with sub directories.
+# Last part of path of each level can be a file or a directory.
+hiera_vars:
+  role: "{{ entity.name.split('-').0 }}"
+  env: "{{ entity.name.split('-').2 }}"
 hieradata:
   hierarchy:
-    - common.yml
-    - "environments/{{ env }}.yml"
-    - "roles/{{ role }}.yml"
-    - "roles/{{ role }}-{{ env }}.yml"
+    - common
+    - "environments/{{ env }}"
+    - "roles/{{ role }}"
+    - "roles/{{ role }}-{{ env }}"
 '''
 
 import inflection
