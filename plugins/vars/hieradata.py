@@ -88,7 +88,6 @@ import yaml
 from jinja2 import Template
 from yaml.loader import SafeLoader
 
-from ansible import constants as C
 from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
