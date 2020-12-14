@@ -1,0 +1,3 @@
+database:
+  type: Oracle
+  version: 12.0.4

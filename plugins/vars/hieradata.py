@@ -16,7 +16,9 @@ DOCUMENTATION = '''
     options:
       hiera_basedir:
         default: "hieradata"
-        description: The base directory where the hierarchy has to be placed in.
+        description:
+            - The base directory where the hierarchy has to be placed in.
+            - The base directory has to be placed within the ianventory directory or playbook directory.
         type: str
         env:
           - name: HIERADATA_BASE_DIR
@@ -33,16 +35,6 @@ DOCUMENTATION = '''
         ini:
           - section: hieradata
             key: config
-      hiera_data_for:
-        default: both
-        choices: [hosts, groups, both]
-        description:
-          - Should be data loaded for I(hosts), I(groups) or I(both).
-          - I case of I(both) the I(basedir) exists in sub direcoties I(host_vars) and I(group_vars) and there the defined hierarchy.
-          - If you choose I(hosts) or I(groups) the I(basedir) exists in inventory directory or playbook directory and there the defined hierarchy.
-        ini:
-          - section: hieradata
-            key: load_data_for
       stage:
         ini:
           - section: hieradata
@@ -88,6 +80,7 @@ import yaml
 from jinja2 import Template
 from yaml.loader import SafeLoader
 
+from ansible import constants as C
 from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
@@ -120,35 +113,44 @@ class VarsModule(BaseVarsPlugin):
         super(VarsModule, self).get_vars(loader, path, entities)
 
         self.hiera_basedir = self.get_option('hiera_basedir')
-        self.hiera_data_for = self.get_option('hiera_data_for')
         self.hiera_config = self.get_option('hiera_config')
 
         hieradata = {}
         for entity in entities:
-            hierarchy = self._parse_config(entity, parse=self.hiera_data_for)
+            hierarchy = self._parse_config(entity, os.path.join(self._basedir, self.hiera_config))
+            if isinstance(entity, Host):
+                if not entity.name.startswith(os.path.sep) and hierarchy is not None:
+                    found_files = []
+                    for level in hierarchy:
+                        l_dirname = os.path.join(self.hiera_basedir, os.path.dirname(level))
+                        l_basename = os.path.basename(level)
+                        b_path = os.path.realpath(to_bytes(os.path.join(self._basedir, l_dirname)))
+                        t_path = to_text(b_path)
+                        try:
+                            # load vars
+                            if cache and level in FOUND:
+                                found_files = FOUND[level]
+                            else:
+                                # if basedir for that level doesn't exists, we don't have to do anything here
+                                if os.path.exists(b_path):
+                                    if os.path.isdir(b_path):
+                                        self._display.debug("\tprocessing dir {0}".format(t_path))
+                                        found_files = loader.find_vars_files(t_path, l_basename)
+                                        FOUND[level] = found_files
+                                    else:
+                                        self._display.warning("Found {0} that is not a directory, skipping: {1}".format(l_dirname, t_path))
 
-            if self.hiera_data_for == 'hosts' or self.hiera_data_for == 'groups':
-                hiera_basedir = os.path.join(self.hiera_basedir)
-            elif isinstance(entity, Host) and self.hiera_data_for == 'both':
-                hiera_basedir = os.path.join(self.hiera_basedir, 'host_vars')
-            elif isinstance(entity, Group) and self.hiera_data_for == 'both':
-                hiera_basedir = os.path.join(self.hiera_basedir, 'group_vars')
-            else:
-                raise AnsibleParserError("Supplied entity must be Host or Group, got %s instead" % (type(entity)))
+                            for found in found_files:
+                                new_data = loader.load_from_file(found, cache=True, unsafe=True)
+                                if new_data:  # ignore empty files
+                                    hieradata = combine_vars(hieradata, new_data)
 
-        for i, entry in enumerate(hierarchy):
-            t = Template(entry)
-            # currently statically
-            # TODO: handover variables to `get_vars`
-            hierarchy[i] = t.render(role='web', env='test')
-
-        self._display.display(u"hierarchy: {}".format(hierarchy))
-
-        hieradata = {}
+                        except Exception as e:
+                            raise AnsibleParserError(to_native(e))
 
         return hieradata
 
-    def _parse_config(self, entity, parse="both"):
+    def _parse_config(self, entity, config):
         """Loads hieradata.yml and parse its content
 
         :param entity: the entity for what the configuration will be parsed
@@ -158,20 +160,17 @@ class VarsModule(BaseVarsPlugin):
         :return: list of paths which reflects the hierarchy
         :rtype: list
         """
-        if inflection.singularize(parse) == type(entity).__name__.lower() or parse == "both":
-            with open(self.hiera_config) as fd:
-                fd_data = yaml.load(fd, Loader=SafeLoader)
+        with open(config) as fd:
+            fd_data = yaml.load(fd, Loader=SafeLoader)
 
-            hiera_vars = {}
-            for k, v in fd_data['hiera_vars'].items():
-                t = Template(v)
-                hiera_vars[k] = t.render(entity=entity)
+        hiera_vars = {}
+        for k, v in fd_data['hiera_vars'].items():
+            t = Template(v)
+            hiera_vars[k] = t.render(entity=entity)
 
-            hierarchy = []
-            for i, entry in enumerate(fd_data['hierarchy']):
-                t = Template(entry)
-                hierarchy.insert(i, t.render(hiera_vars))
+        hierarchy = []
+        for i, entry in enumerate(fd_data['hierarchy']):
+            t = Template(entry)
+            hierarchy.insert(i, t.render(hiera_vars))
 
-            return hierarchy
-        else:
-            return None
+        return hierarchy

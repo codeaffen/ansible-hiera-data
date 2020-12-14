@@ -1,1 +1,9 @@
 ---
+project: ansible-hiera-data
+test_case: file test
+
+database:
+  schemes:
+    customer:
+      - name: customer.sql
+        version: 10.1.4711
