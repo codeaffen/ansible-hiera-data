@@ -1,0 +1,8 @@
+hiera_vars:
+  role: "{{ entity.name.split('-').0 }}"
+  env: "{{ entity.name.split('-').2 }}"
+hierarchy:
+  - common
+  - "{{ env }}"
+  - "{{ role }}"
+  - "{{ role }}-{{ env }}"

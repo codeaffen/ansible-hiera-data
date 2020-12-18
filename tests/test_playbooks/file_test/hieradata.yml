@@ -1,6 +1,0 @@
-basedire: hieradata
-hierarchy:
-  - common.yml
-  - "{{ env }}.yml"
-  - "{{ role }}.yml"
-  - "{{ role }}-{{ env }}.yml"

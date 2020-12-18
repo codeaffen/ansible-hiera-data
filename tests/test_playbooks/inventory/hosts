@@ -1,0 +1,9 @@
+[db]
+db-1-test-01.test.example.com
+db-1-stage-01.stage.example.com
+db-1-prod-01.prod.example.com
+
+[web]
+web-1-test-01.test.example.com
+web-1-stage-01.stage.example.com
+web-1-prod-01.prod.example.com

@@ -42,9 +42,9 @@ Synopsis
 
 .. Description
 
-- Loads YAML vars into corresponding groups/hosts in group_vars/ and host_vars/ directories.
+- Loads YAML vars into corresponding hierarchy directories/files.
 - Loads only files with extension to one of .yaml, .json, .yml or no extension.
-- Starting in 0.0.1, this plugin requires whitelisting and is whitelisted by default.
+- Starting in 0.0.1, this plugin requires explicit whitelisting via *vars_plugins_enabled*.
 
 
 .. Aliases
@@ -124,47 +124,25 @@ Parameters
                                                                     </td>
                                                 <td>
                                             <div>The base directory where the hierarchy has to be placed in.</div>
+                                            <div>The base directory has to be placed within the inventory directory or playbook directory.</div>
                                                         </td>
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy"></div>
-                    <b>hiera_hierarchy</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy" title="Permalink to this option"></a>
-                    <div style="font-size: small">
-                        <span style="color: purple">list</span>
-                         / <span style="color: purple">elements=string</span>                                            </div>
-                                                        </td>
-                                <td>
-                                                                                                                                                            </td>
-                                                    <td>
-                                                    <div> ini entries:
-                                                                    <p>
-                                        [hieradata]<br>hierarchy = None
-                                                                                                                    </p>
-                                                            </div>
-                                                                                            </td>
-                                                <td>
-                                            <div>List of files and directories which builds up the hierarchy.</div>
-                                            <div>The elements follow the precedence. First element lowest precedence, last highest.</div>
-                                            <div>Mutually exclusive with <em>config</em>.</div>
-                                                        </td>
-            </tr>
-                                <tr>
-                                                                <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_hierarchy_config"></div>
-                    <b>hiera_hierarchy_config</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_hierarchy_config" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-hiera_config"></div>
+                    <b>hiera_config</b>
+                    <a class="ansibleOptionLink" href="#parameter-hiera_config" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                                                                     </div>
                                                         </td>
                                 <td>
-                                                                                                                                                            </td>
+                                                                                                                                                                    <b>Default:</b><br/><div style="color: blue">"hieradata.yml"</div>
+                                    </td>
                                                     <td>
                                                     <div> ini entries:
                                                                     <p>
-                                        [hieradata]<br>config = None
+                                        [hieradata]<br>config = hieradata.yml
                                                                                                                     </p>
                                                             </div>
                                                                             <div>
@@ -173,7 +151,7 @@ Parameters
                                                                     </td>
                                                 <td>
                                             <div>Name of hieradata configuration file.</div>
-                                            <div>Mutually exclusive with <em>hierarchy</em>.</div>
+                                            <div>The hieradata configuration file has to be placed within the inventory dirctory or playbook directory.</div>
                                                         </td>
             </tr>
                                 <tr>
@@ -198,11 +176,11 @@ Parameters
                                                     <td>
                                                     <div> ini entries:
                                                                     <p>
-                                        [vars_host_group_vars]<br>stage = None
+                                        [hieradata]<br>stage = None
                                                                                                                     </p>
                                                             </div>
                                                                             <div>
-                                env:ANSIBLE_VARS_PLUGIN_STAGE
+                                env:HIERADATA_VARS_PLUGIN_STAGE
                                                                                             </div>
                                                                     </td>
                                                 <td>
@@ -223,6 +201,36 @@ Parameters
 
 
 .. Examples
+
+Examples
+--------
+
+.. code-block:: yaml+jinja
+
+    
+    # hieradata.yml.
+    # Each level in hierarchy can be a file or a directory.
+    hiera_vars:
+      role: "{{ entity.name.split('-').0 }}"
+      env: "{{ entity.name.split('-').2 }}"
+    hierarchy:
+      - common
+      - "{{ env }}"
+      - "{{ role }}"
+      - "{{ role }}-{{ env }}"
+
+    # hieradata organized with sub directories.
+    # Last part of path of each level can be a file or a directory.
+    hiera_vars:
+      role: "{{ entity.name.split('-').0 }}"
+      env: "{{ entity.name.split('-').2 }}"
+    hieradata:
+      hierarchy:
+        - common
+        - "environments/{{ env }}"
+        - "roles/{{ role }}"
+        - "roles/{{ role }}-{{ env }}"
+
 
 
 
