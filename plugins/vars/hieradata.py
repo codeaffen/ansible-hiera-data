@@ -39,7 +39,10 @@ DOCUMENTATION = '''
       hash_behavior:
         default: merge
         description:
-          -
+          - This setting defines how hashes will be merged.
+          - By default hieradata will merge hashes, so data only exists in higher precedence will be added to the data with lower precedence.
+          - Higher precedence value will override lower precedence values.
+          - You can define replace if you want to override data with lower precedence.
         choices: ['merge', 'replace']
         type: str
         env:
@@ -50,7 +53,10 @@ DOCUMENTATION = '''
       list_behavior:
         default: replace
         description:
-          -
+          - This setting defines how lists will be handled.
+          - By default data with higher precedence will `replace` data with lower precedence.
+          - You can also append or prepend data with higher precedence.
+          - With replace you can override data with lower precedece by data with higher one.
         choices: ['append', 'append_rp', 'keep', 'prepend', 'prepend_rp', 'replace']
         type: str
         env:
