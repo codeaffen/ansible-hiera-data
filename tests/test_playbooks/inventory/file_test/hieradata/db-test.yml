@@ -4,4 +4,6 @@ database:
   schemes:
     customer:
       - name: customer.sql
-        version: 10.1.1337
+        version: 10.2.1337
+      - name: test_data.sql
+        version: 10.2.1337

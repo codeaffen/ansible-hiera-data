@@ -14,7 +14,7 @@ DOCUMENTATION = '''
         - Loads only files with extension to one of .yaml, .json, .yml or no extension.
         - Starting in 0.0.1, this plugin requires explicit whitelisting via I(vars_plugins_enabled).
     options:
-      hiera_basedir:
+      basedir:
         default: "hieradata"
         description:
             - The base directory where the hierarchy has to be placed in.
@@ -25,7 +25,7 @@ DOCUMENTATION = '''
         ini:
           - section: hieradata
             key: basedir
-      hiera_config:
+      config:
         default: hieradata.yml
         description:
           - Name of hieradata configuration file.
@@ -36,6 +36,28 @@ DOCUMENTATION = '''
         ini:
           - section: hieradata
             key: config
+      hash_behavior:
+        default: merge
+        description:
+          -
+        choices: ['merge', 'replace']
+        type: str
+        env:
+          - name: HIERADATA_HASH_BEHAVIOR
+        ini:
+          - section: hieradata
+            key: hash_behavior
+      list_behavior:
+        default: replace
+        description:
+          -
+        choices: ['append', 'append_rp', 'keep', 'prepend', 'prepend_rp', 'replace']
+        type: str
+        env:
+          - name: HIERADATA_HASH_BEHAVIOR
+        ini:
+          - section: hieradata
+            key: list_behavior
       stage:
         ini:
           - section: hieradata
@@ -92,7 +114,7 @@ from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.inventory.host import Host
-from ansible.utils.vars import combine_vars
+from ansible_collections.codeaffen.hieradata.plugins.module_utils.vars import combine_vars
 
 FOUND = {}
 
@@ -118,8 +140,10 @@ class VarsModule(BaseVarsPlugin):
 
         super(VarsModule, self).get_vars(loader, path, entities)
 
-        self.hiera_basedir = self.get_option('hiera_basedir')
-        self.hiera_config = self.get_option('hiera_config')
+        self.hiera_basedir = self.get_option('basedir')
+        self.hiera_config = self.get_option('config')
+        self.hiera_hash_behavior = self.get_option('hash_behavior')
+        self.hiera_list_behavior = self.get_option('list_behavior')
 
         hieradata = {}
         for entity in entities:
@@ -149,7 +173,7 @@ class VarsModule(BaseVarsPlugin):
                             for found in found_files:
                                 new_data = loader.load_from_file(found, cache=True, unsafe=True)
                                 if new_data:  # ignore empty files
-                                    hieradata = combine_vars(hieradata, new_data)
+                                    hieradata = combine_vars(hieradata, new_data, self.hiera_hash_behavior, self.hiera_list_behavior)
 
                         except Exception as e:
                             raise AnsibleParserError(to_native(e))
