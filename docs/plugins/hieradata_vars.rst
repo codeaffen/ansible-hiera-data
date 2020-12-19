@@ -102,9 +102,9 @@ Parameters
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_basedir"></div>
-                    <b>hiera_basedir</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_basedir" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-basedir"></div>
+                    <b>basedir</b>
+                    <a class="ansibleOptionLink" href="#parameter-basedir" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                                                                     </div>
@@ -129,9 +129,9 @@ Parameters
             </tr>
                                 <tr>
                                                                 <td colspan="1">
-                    <div class="ansibleOptionAnchor" id="parameter-hiera_config"></div>
-                    <b>hiera_config</b>
-                    <a class="ansibleOptionLink" href="#parameter-hiera_config" title="Permalink to this option"></a>
+                    <div class="ansibleOptionAnchor" id="parameter-config"></div>
+                    <b>config</b>
+                    <a class="ansibleOptionLink" href="#parameter-config" title="Permalink to this option"></a>
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                                                                     </div>
@@ -152,6 +152,74 @@ Parameters
                                                 <td>
                                             <div>Name of hieradata configuration file.</div>
                                             <div>The hieradata configuration file has to be placed within the inventory dirctory or playbook directory.</div>
+                                                        </td>
+            </tr>
+                                <tr>
+                                                                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-hash_behavior"></div>
+                    <b>hash_behavior</b>
+                    <a class="ansibleOptionLink" href="#parameter-hash_behavior" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">string</span>
+                                                                    </div>
+                                                        </td>
+                                <td>
+                                                                                                                            <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                                                                                                                                                <li><div style="color: blue"><b>merge</b>&nbsp;&larr;</div></li>
+                                                                                                                                                                                                <li>replace</li>
+                                                                                    </ul>
+                                                                            </td>
+                                                    <td>
+                                                    <div> ini entries:
+                                                                    <p>
+                                        [hieradata]<br>hash_behavior = merge
+                                                                                                                    </p>
+                                                            </div>
+                                                                            <div>
+                                env:HIERADATA_HASH_BEHAVIOR
+                                                                                            </div>
+                                                                    </td>
+                                                <td>
+                                            <div>This setting defines how hashes will be merged.</div>
+                                            <div>By default hieradata will merge hashes, so data only exists in higher precedence will be added to the data with lower precedence.</div>
+                                            <div>Higher precedence value will override lower precedence values.</div>
+                                            <div>You can define replace if you want to override data with lower precedence.</div>
+                                                        </td>
+            </tr>
+                                <tr>
+                                                                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-list_behavior"></div>
+                    <b>list_behavior</b>
+                    <a class="ansibleOptionLink" href="#parameter-list_behavior" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">string</span>
+                                                                    </div>
+                                                        </td>
+                                <td>
+                                                                                                                            <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                                                                                                                                                <li>append</li>
+                                                                                                                                                                                                <li>append_rp</li>
+                                                                                                                                                                                                <li>keep</li>
+                                                                                                                                                                                                <li>prepend</li>
+                                                                                                                                                                                                <li>prepend_rp</li>
+                                                                                                                                                                                                <li><div style="color: blue"><b>replace</b>&nbsp;&larr;</div></li>
+                                                                                    </ul>
+                                                                            </td>
+                                                    <td>
+                                                    <div> ini entries:
+                                                                    <p>
+                                        [hieradata]<br>list_behavior = replace
+                                                                                                                    </p>
+                                                            </div>
+                                                                            <div>
+                                env:HIERADATA_HASH_BEHAVIOR
+                                                                                            </div>
+                                                                    </td>
+                                                <td>
+                                            <div>This setting defines how lists will be handled.</div>
+                                            <div>By default data with higher precedence will `replace` data with lower precedence.</div>
+                                            <div>You can also append or prepend data with higher precedence.</div>
+                                            <div>With replace you can override data with lower precedece by data with higher one.</div>
                                                         </td>
             </tr>
                                 <tr>
