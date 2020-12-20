@@ -111,16 +111,13 @@ hieradata:
 '''
 
 import os
-import yaml
-
-from jinja2 import Template
-from yaml.loader import SafeLoader
 
 from ansible.errors import AnsibleParserError
 from ansible.module_utils._text import to_bytes, to_native, to_text
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.inventory.host import Host
 from ansible_collections.codeaffen.hieradata.plugins.module_utils.vars import combine_vars
+from ansible_collections.codeaffen.hieradata.plugins.module_utils.hieradata import parse_config
 
 FOUND = {}
 
@@ -185,29 +182,3 @@ class VarsModule(BaseVarsPlugin):
                             raise AnsibleParserError(to_native(e))
 
         return hieradata
-
-
-def parse_config(entity, config):
-    """Loads hieradata.yml and parse its content
-
-    :param entity: the entity for what the configuration will be parsed
-    :type entity: str
-    :param parse: the type of entity we want to parse the configuration, defaults to "both"
-    :type parse: str, optional
-    :return: list of paths which reflects the hierarchy
-    :rtype: list
-    """
-    with open(config) as fd:
-        fd_data = yaml.load(fd, Loader=SafeLoader)
-
-    hiera_vars = {}
-    for k, v in fd_data['hiera_vars'].items():
-        t = Template(v)
-        hiera_vars[k] = t.render(entity=entity)
-
-    hierarchy = []
-    for i, entry in enumerate(fd_data['hierarchy']):
-        t = Template(entry)
-        hierarchy.insert(i, t.render(hiera_vars))
-
-    return hierarchy
