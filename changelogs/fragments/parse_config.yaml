@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - Add method to parse configuration file (e.g. hieradata.yml).
+  - Parse entity name into hiera_vars dict.
+  - The hiera_vars dict can be used to generate a dynamic hierarchy.

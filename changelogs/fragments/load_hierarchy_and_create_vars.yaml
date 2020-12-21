@@ -1,0 +1,6 @@
+---
+minor_changes:
+  - Load files from hierarchy.
+  - Last part of hierarchy can be file or directory.
+  - If last part is directory it can have no, one or multiple files in it.
+  - After loading, the vars will be combined with ansible functions.

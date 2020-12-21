@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - Add a wrapper function `combine_vars` to be compatible to default ansible.
+  - These function tages two extra parameters `hash_behavior` and `list_behavior` to configure this feature as needed.
+  - Add configuration parameters to manage hash and list behavior.
