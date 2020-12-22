@@ -3,7 +3,7 @@ name: "hieradata"
 description: Ansible collection to manage configuration data in a hierarchical structure
 authors:
   - "Christian Meißner <cme+ansible@meissner.sh>"
-version: "0.0.1"
+version: "0.1.0"
 license:
   - "GPL-3.0-or-later"
 tags:

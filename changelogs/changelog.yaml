@@ -8,3 +8,24 @@ releases:
         name: hieradata
         namespace: null
     release_date: '2020-11-26'
+  0.1.0:
+    changes:
+      minor_changes:
+      - Add a wrapper function `combine_vars` to be compatible to default ansible.
+      - Add configuration parameters to manage hash and list behavior.
+      - Add method to parse configuration file (e.g. hieradata.yml).
+      - After loading, the vars will be combined with ansible functions.
+      - Change parameter names. Remove prefix to make documentation more clear.
+      - If last part is directory it can have no, one or multiple files in it.
+      - Last part of hierarchy can be file or directory.
+      - Load files from hierarchy.
+      - Parse entity name into hiera_vars dict.
+      - The hiera_vars dict can be used to generate a dynamic hierarchy.
+      - These function tages two extra parameters `hash_behavior` and `list_behavior`
+        to configure this feature as needed.
+    fragments:
+    - add_wrapper_for_combine_vars.yaml
+    - fix_config_parameter_names.yml
+    - load_hierarchy_and_create_vars.yaml
+    - parse_config.yaml
+    release_date: '2020-12-21'
