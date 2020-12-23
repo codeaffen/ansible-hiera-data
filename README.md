@@ -1,5 +1,9 @@
 # Ansible Hieradata
 
+![Version on Galaxy](https://img.shields.io/badge/dynamic/json?style=flat&label=galaxy&prefix=v&url=https://galaxy.ansible.com/api/v2/collections/codeaffen/hieradata/&query=latest_version.version)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0372c2bb95e845ce96fa5d4cf13ca1ca)](https://www.codacy.com/gh/codeaffen/ansible-hiera-data/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codeaffen/ansible-hiera-data&amp;utm_campaign=Badge_Grade)
+[![Documentation Status](https://readthedocs.org/projects/ansible-hiera-data/badge/?version=develop)](https://ansible-hiera-data.readthedocs.io/en/develop/?badge=develop)
+
 This collection provides plugins to manage your project configuration data in a hierarchical manner like [puppet](https://puppet.com/docs/puppet/6.17/hiera_quick.html) do.
 
 ## Installation
@@ -67,3 +71,7 @@ A last option to read the docs is the docs folder in this repository.
 The following dependencies have to be fulfiled by the Ansible controller.
 
 * ...
+
+## Need help?
+
+If you’ve found any issues in this release please head over to github and open a bug so we can take a look.
