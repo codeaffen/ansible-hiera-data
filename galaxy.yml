@@ -13,6 +13,6 @@ tags:
   - module
   - hieradata
 readme: "README.md"
-homepage: "https://codeaffen.github.io/ansible-hiera-data"
+homepage: "https://codeaffen.org/projects/ansible-hiera-data"
 repository: "https://github.com/codeaffen/ansible-hiera-data"
 issues: "https://github.com/codeaffen/ansible-hiera-data/issues"
