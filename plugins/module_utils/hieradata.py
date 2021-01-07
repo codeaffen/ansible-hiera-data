@@ -4,6 +4,7 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
+import os
 import yaml
 
 from jinja2 import Template
@@ -20,17 +21,19 @@ def parse_config(entity, config):
     :return: list of paths which reflects the hierarchy
     :rtype: list
     """
-    with open(config) as fd:
-        fd_data = yaml.load(fd, Loader=SafeLoader)
+    hierarchy = None
+    if os.path.exists(config) and os.path.isfile(config):
+        with open(config) as fd:
+            fd_data = yaml.load(fd, Loader=SafeLoader)
 
-    hiera_vars = {}
-    for k, v in fd_data['hiera_vars'].items():
-        t = Template(v)
-        hiera_vars[k] = t.render(entity=entity)
+        hiera_vars = {}
+        for k, v in fd_data['hiera_vars'].items():
+            t = Template(v)
+            hiera_vars[k] = t.render(entity=entity)
 
-    hierarchy = []
-    for i, entry in enumerate(fd_data['hierarchy']):
-        t = Template(entry)
-        hierarchy.insert(i, t.render(hiera_vars))
+        hierarchy = []
+        for i, entry in enumerate(fd_data['hierarchy']):
+            t = Template(entry)
+            hierarchy.insert(i, t.render(hiera_vars))
 
     return hierarchy
