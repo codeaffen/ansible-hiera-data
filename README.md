@@ -31,8 +31,7 @@ But if you need to customize the configuration you can see in
 [documentation](https://ansible-hiera-data.readthedocs.io/en/latest/plugins/hieradata_vars.html#ansible-collections-codeaffen-hieradata-hieradata-vars)
 you can configure the vars plugin eigther via `ansible.cfg` parameter in section `hieradata` or via environment variables.
 
-You have to keep in mind that the paths for `basedir` and `config` are relative to your inventory directory. Without any configuration you have to place
-the basedir and config as followed.
+You have to keep in mind that the paths for `basedir` and `config` are relative to your inventory or playbook directory, depending of the selected stage. Without any configuration you have to place the basedir and config as followed.
 
 ```bash
 .
