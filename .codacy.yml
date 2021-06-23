@@ -3,6 +3,7 @@ exclude_paths:
   - '.github/**'
   - '.pyup.yml'
   - '.vscode/**'
+  - 'CODE_OF_CONDUCT.md'
   - 'CONTRIBUTING.md'
   - 'docs/**'
   - 'README.md'
