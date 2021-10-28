@@ -2,7 +2,6 @@
 wheel
 ansible
 inflection
-jinja2
 PyYAML~=5.3
 cryptography
 packaging
