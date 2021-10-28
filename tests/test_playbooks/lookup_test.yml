@@ -1,0 +1,25 @@
+---
+- hosts: all
+  # strategy: debug
+  gather_facts: no
+
+  tasks:
+    - name: debug list
+      debug: var=list_item
+      with_list:
+        - foo
+        - bar
+        - baz
+      loop_control:
+        loop_var: list_item
+
+    - name: debug lookup
+      vars:
+        item: "{{ lookup('codeaffen.hieradata.lookup', lookup_item) }}"
+      debug: var=item
+      with_items:
+        - foo
+        - bar
+        - baz
+      loop_control:
+        loop_var: lookup_item
