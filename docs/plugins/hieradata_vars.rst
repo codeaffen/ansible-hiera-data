@@ -2,6 +2,16 @@
 
 :orphan:
 
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+
 .. Anchors
 
 .. _ansible_collections.codeaffen.hieradata.hieradata_vars:
@@ -20,7 +30,7 @@ codeaffen.hieradata.hieradata -- Loads configuration from a hierarchical configu
 .. Collection note
 
 .. note::
-    This plugin is part of the `codeaffen.hieradata collection <https://galaxy.ansible.com/codeaffen/hieradata>`_.
+    This plugin is part of the `codeaffen.hieradata collection <https://galaxy.ansible.com/codeaffen/hieradata>`_ (version 0.1.0).
 
     To install it use: :code:`ansible-galaxy collection install codeaffen.hieradata`.
 
@@ -94,7 +104,7 @@ Parameters
                                                                             <div>
                                 env:ANSIBLE_YAML_FILENAME_EXT
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>Check all of these extensions when looking for &#x27;variable&#x27; files which should be YAML or JSON or vaulted versions of these.</div>
                                             <div>This affects vars_files, include_vars, inventory and vars plugins among others.</div>
@@ -121,7 +131,7 @@ Parameters
                                                                             <div>
                                 env:HIERADATA_BASE_DIR
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>The base directory where the hierarchy has to be placed in.</div>
                                             <div>The base directory has to be placed within the inventory directory or playbook directory.</div>
@@ -148,7 +158,7 @@ Parameters
                                                                             <div>
                                 env:HIERADATA_CONFIG_FILE
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>Name of hieradata configuration file.</div>
                                             <div>The hieradata configuration file has to be placed within the inventory dirctory or playbook directory.</div>
@@ -178,7 +188,7 @@ Parameters
                                                                             <div>
                                 env:HIERADATA_HASH_BEHAVIOR
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>This setting defines how hashes will be merged.</div>
                                             <div>By default hieradata will merge hashes, so data only exists in higher precedence will be added to the data with lower precedence.</div>
@@ -214,7 +224,7 @@ Parameters
                                                                             <div>
                                 env:HIERADATA_HASH_BEHAVIOR
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>This setting defines how lists will be handled.</div>
                                             <div>By default data with higher precedence will `replace` data with lower precedence.</div>
@@ -250,7 +260,7 @@ Parameters
                                                                             <div>
                                 env:HIERADATA_VARS_PLUGIN_STAGE
                                                                                             </div>
-                                                                    </td>
+                                                                                            </td>
                                                 <td>
                                             <div>Control when this vars plugin may be executed.</div>
                                             <div>Setting this option to <code>all</code> will run the vars plugin after importing inventory and whenever it is demanded by a task.</div>
@@ -261,6 +271,9 @@ Parameters
             </tr>
                         </table>
     <br/>
+
+.. Attributes
+
 
 .. Notes
 
