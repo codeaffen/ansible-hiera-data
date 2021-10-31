@@ -28,7 +28,7 @@ ansible-galaxy collection install codeaffen-hieradata-<version>.tar.gz
 The plugin comes with useful defaults to start to use the `hieradata` vars plugin without any configuration.
 
 But if you need to customize the configuration you can see in
-[documentation](https://ansible-hiera-data.readthedocs.io/en/latest/plugins/hieradata_vars.html#ansible-collections-codeaffen-hieradata-hieradata-vars)
+[documentation](https://ansible-hiera-data.readthedocs.io/en/develop/plugins/hieradata_vars.html#ansible-collections-codeaffen-hieradata-hieradata-vars)
 you can configure the vars plugin eigther via `ansible.cfg` parameter in section `hieradata` or via environment variables.
 
 You have to keep in mind that the paths for `basedir` and `config` are relative to your inventory or playbook directory, depending of the selected stage. Without any configuration you have to place the basedir and config as followed.
@@ -59,7 +59,7 @@ In this example you need to do `export HIERADATA_BASE_DIR=hieradata/customer_a` 
 
 ### readthedocs.io
 
-Current documentation can be found on [readthedocs.io](https://ansible-hiera-data.readthedocs.io/en/devel).
+Current documentation can be found on [readthedocs.io](https://ansible-hiera-data.readthedocs.io/en/develop).
 
 ### repository folder
 
