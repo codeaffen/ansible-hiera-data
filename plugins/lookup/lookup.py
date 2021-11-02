@@ -1,21 +1,15 @@
-# python 3 headers, required if submitting to Ansible
+# Copyright (c) 2021 Christian Meißner
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 DOCUMENTATION = """
-        lookup: lookup
-        author: Christian Meißner <cme+codeaffen@meissner.sh>
-        version_added: "0.0.2"
-        short_description: prints debug text
-        description:
-            - This lookup returns nothing but a text to stderr
-        # options:
-        #   _terms:
-        #     description: path(s) of files to read
-        #     required: True
-        # notes:
-        #   - if read in variable context, the file can be interpreted as YAML if the content is valid to the parser.
-        #   - this lookup does not understand globing --- use the fileglob lookup instead.
+    lookup: lookup
+    author: Christian Meißner <cme+codeaffen@meissner.sh>
+    version_added: "0.0.2"
+    short_description: prints debug text
+    description:
+        - This lookup returns nothing but a text to stderr
 """
 from ansible.plugins.lookup import LookupBase
 from ansible.utils.display import Display

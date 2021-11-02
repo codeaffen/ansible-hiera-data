@@ -38,7 +38,7 @@ codeaffen.hieradata.list -- simply returns what it is given.
 
 .. version_added
 
-.. versionadded:: 2.0 of codeaffen.hieradata
+.. versionadded:: 0.0.2 of codeaffen.hieradata
 
 .. contents::
    :local:
@@ -134,7 +134,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 Authors
 ~~~~~~~
 
-- Ansible Core Team
+- Christian Meißner <cme+codeaffen@meissner.sh>
 
 
 
