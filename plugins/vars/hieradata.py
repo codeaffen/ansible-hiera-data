@@ -118,13 +118,15 @@ from ansible.plugins.vars import BaseVarsPlugin
 from ansible.inventory.host import Host
 from ansible_collections.codeaffen.hieradata.plugins.module_utils.vars import combine_vars
 from ansible_collections.codeaffen.hieradata.plugins.module_utils.hieradata import parse_config
+from ansible.utils.display import Display
 
 FOUND = {}
+display = Display()
 
 
 class VarsModule(BaseVarsPlugin):
 
-    def get_vars(self, loader, path, entities, cache=True):
+    def get_vars(self, loader, path, entities, cache=True):  # noqa: C901
         """parse the inventory file.
 
         :param loader: The DataLoader wich auto-load JSON/YAML and decrypt vaulted data, and cache read files.
@@ -150,8 +152,8 @@ class VarsModule(BaseVarsPlugin):
 
         hieradata = {}
         for entity in entities:
-            hierarchy = parse_config(entity, os.path.join(self._basedir, self.hiera_config))
             if isinstance(entity, Host):
+                hierarchy = parse_config(entity, os.path.join(self._basedir, os.path.dirname(self.hiera_basedir), self.hiera_config))
                 if not entity.name.startswith(os.path.sep) and hierarchy is not None:
                     found_files = []
                     for level in hierarchy:
