@@ -1,0 +1,9 @@
+database:
+  type: MySQL
+  version: 8.0.22
+  schemes:
+    customer:
+      - name: customer.sql
+        version: 10.2.1337
+      - name: test_data.sql
+        version: 10.2.1337
