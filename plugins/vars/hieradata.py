@@ -29,7 +29,8 @@ DOCUMENTATION = '''
         default: hieradata.yml
         description:
           - Name of hieradata configuration file.
-          - The hieradata configuration file has to be placed within the inventory dirctory or playbook directory.
+          - The hieradata configuration file has to be placed within the inventory directory or playbook directory.
+          - If you want to use a different file location, you can add a path relative to the inventory or playbook directory to the file.
         type: str
         env:
           - name: HIERADATA_CONFIG_FILE
@@ -153,7 +154,7 @@ class VarsModule(BaseVarsPlugin):
         hieradata = {}
         for entity in entities:
             if isinstance(entity, Host):
-                hierarchy = parse_config(entity, os.path.join(self._basedir, os.path.dirname(self.hiera_basedir), self.hiera_config))
+                hierarchy = parse_config(entity, os.path.join(self._basedir, self.hiera_config))
                 if not entity.name.startswith(os.path.sep) and hierarchy is not None:
                     found_files = []
                     for level in hierarchy:
