@@ -52,7 +52,7 @@ publish: $(NAMESPACE)-$(NAME)-$(VERSION).tar.gz
 	ansible-galaxy collection publish --api-key $(GALAXY_API_KEY) $<
 
 clean:
-	rm -rf build
+	rm -rf build docs/_build
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +

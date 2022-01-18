@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'Ansible Hieradata'
-copyright = u'2020, codeaffen'
+copyright = u'2021, codeaffen'
 author = u'codeaffen'
 
 # The short X.Y version
@@ -38,12 +38,20 @@ version = u''
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+# Add it to 'extensions':
 extensions = [
     'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    'ansible_basic_sphinx_ext',
+    'sphinx_antsibull_ext'
 ]
+
+# extensions = [
+    # 'myst_parser',
+    # 'sphinx.ext.autodoc',
+    # 'sphinx.ext.intersphinx',
+    # 'ansible_basic_sphinx_ext',
+# ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

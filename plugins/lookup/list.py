@@ -1,15 +1,12 @@
-# (c) 2012-17 Ansible Project
+# Copyright (c) 2021 Christian Meißner
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-
-# Make coding more python3-ish
 from __future__ import (absolute_import, division, print_function)
-
 __metaclass__ = type
 
 DOCUMENTATION = """
-    name: list
-    author: Ansible Core Team
-    version_added: "2.0"
+    lookup: list
+    author: Christian Meißner <cme+codeaffen@meissner.sh>
+    version_added: "0.0.2"
     short_description: simply returns what it is given.
     description:
       - this is mostly a noop, to be used as a with_list loop when you dont want the content transformed in any way.
