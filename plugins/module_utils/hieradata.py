@@ -12,7 +12,7 @@ from yaml.loader import SafeLoader
 
 
 def parse_config(entity, config):
-    """Loads hieradata.yml and parse its content
+    """Load hieradata.yml and parse its content.
 
     :param entity: the entity for what the configuration will be parsed
     :type entity: str
