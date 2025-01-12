@@ -1,6 +1,6 @@
 # Ansible Hieradata
 
-[![Version on Galaxy](https://img.shields.io/badge/dynamic/json?style=flat&label=galaxy&prefix=v&url=https://galaxy.ansible.com/api/v2/collections/codeaffen/hieradata/&query=latest_version.version)](https://galaxy.ansible.com/codeaffen/hieradata)
+[![Version on Galaxy](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv3%2Fplugin%2Fansible%2Fcontent%2Fpublished%2Fcollections%2Findex%2Fcodeaffen%2Fhieradata%2F&query=%24.highest_version.version&label=galaxy)](https://galaxy.ansible.com/ui/repo/published/codeaffen/hieradata/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0372c2bb95e845ce96fa5d4cf13ca1ca)](https://www.codacy.com/gh/codeaffen/ansible-hiera-data/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codeaffen/ansible-hiera-data&amp;utm_campaign=Badge_Grade)
 [![Documentation Status](https://readthedocs.org/projects/ansible-hiera-data/badge/?version=develop)](https://ansible-hiera-data.readthedocs.io/en/develop/?badge=develop)
 
