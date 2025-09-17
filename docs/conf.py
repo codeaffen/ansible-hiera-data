@@ -38,20 +38,12 @@ version = u''
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-# Add it to 'extensions':
 extensions = [
     'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    'sphinx_antsibull_ext'
+    'sphinx_antsibull_ext',
 ]
-
-# extensions = [
-    # 'myst_parser',
-    # 'sphinx.ext.autodoc',
-    # 'sphinx.ext.intersphinx',
-    # 'ansible_basic_sphinx_ext',
-# ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -73,7 +65,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -83,6 +75,7 @@ exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
+highlight_language = 'YAML+Jinja'
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -170,22 +163,5 @@ texinfo_documents = [
 ]
 
 
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
-
 # -- Extension configuration -------------------------------------------------
+intersphinx_mapping = {'python': ('https://docs.python.org/2', None), 'ansible': ('https://docs.ansible.com/ansible/latest/', None)}
